@@ -13,8 +13,8 @@ public class Step {
     private int stepId;
     private int stepPosition;
     private int generalPosition;
-    private int usersReturned = 0;
-    private Map<Integer, Integer> viewersMap = new HashMap<>();
+    private static int usersReturned = 0;
+    private static Map<Integer, Integer> viewersMap = new HashMap<>();
 
     public Step(int moduleId, int modulePosition, int lessonId, int lessonPosition, int stepId, int stepPosition) {
         this.moduleId = moduleId;
@@ -58,17 +58,11 @@ public class Step {
         return usersReturned;
     }
 
-    public void setUsersReturned(int usersReturned) {
-        this.usersReturned = usersReturned;
-    }
 
     public Map<Integer, Integer> getViewersMap() {
         return viewersMap;
     }
 
-    public void setViewersMap(Map<Integer, Integer> viewersMap) {
-        this.viewersMap = viewersMap;
-    }
     public void plusUser(){
         usersReturned += 1;
     }
@@ -96,6 +90,13 @@ public class Step {
         }
         catch(IOException e){
             System.out.println("Ошибка при обработке файла структуры курса.");
+        }
+    }
+
+    public static void countUsersReturned(){
+        for (Map.Entry<Integer, Integer> map : viewersMap.entrySet()) {
+            if(map.getValue() > 1)
+                usersReturned++;
         }
     }
 }
