@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class User {
     private int id;
+    private int lastStepPos;
 
     public User(int id) {
         this.id = id;
@@ -18,4 +19,11 @@ public class User {
         this.id = id;
     }
 
+    public int getLastStepPos() {
+        return lastStepPos;
+    }
+
+    public void setLastStepPos(int lastStepPos) {
+        this.lastStepPos = lastStepPos;
+    }
 }
