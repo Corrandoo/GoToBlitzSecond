@@ -35,7 +35,7 @@ public class Event {
         return time;
     }
 
-    public void eventsFileToList(List events, String fileName) {
+    public static void eventsFileToList(List<Event> events, String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             reader.readLine();
@@ -49,6 +49,7 @@ public class Event {
 
                 events.add(new Event(userId, actionType, stepId, time));
             }
+            events.sort((o1, o2) -> o1.getTime() - o2.getTime());
         }
         catch(FileNotFoundException e){
             System.out.println("Данный файл лога не найден.");
