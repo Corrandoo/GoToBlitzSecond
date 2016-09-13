@@ -18,12 +18,25 @@ public class Blitz {
 
     public static void main(String[] args) {
         Event.eventsFileToList(events, "src/main/resources/course-217-events.csv");
+        Step.stepsFileToList(steps, stepMap, "src/main/resources/course-217-structure.csv");
     }
     public static void getUsersList(){
         for (Event event : events) {
             if(!userMap.containsKey(event.getUserId())){
                 userMap.put(event.getUserId(), users.size());
                 users.add(new User(event.getUserId()));
+            }
+        }
+    }
+
+    public static void getUsersReturned(){
+        for (Event event : events) {
+            if(!steps.get(stepMap.get(event.getStepId())).getViewersMap().containsKey(event.getUserId())){
+                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), 1);
+            }
+            else if(steps.get(stepMap.get(event.getStepId())).getViewersMap().containsKey(event.getUserId())){
+                int count = steps.get(stepMap.get(event.getStepId())).getViewersMap().get(event.getUserId());
+                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), count++);
             }
         }
     }

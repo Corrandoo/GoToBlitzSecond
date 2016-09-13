@@ -1,6 +1,7 @@
 package me.corrandoo.blitz.service;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ public class Step {
     private int stepId;
     private int stepPosition;
     private int generalPosition;
+    private int usersReturned = 0;
+    private Map<Integer, Integer> viewersMap = new HashMap<>();
 
     public Step(int moduleId, int modulePosition, int lessonId, int lessonPosition, int stepId, int stepPosition) {
         this.moduleId = moduleId;
@@ -51,6 +54,25 @@ public class Step {
         return generalPosition;
     }
 
+    public int getUsersReturned() {
+        return usersReturned;
+    }
+
+    public void setUsersReturned(int usersReturned) {
+        this.usersReturned = usersReturned;
+    }
+
+    public Map<Integer, Integer> getViewersMap() {
+        return viewersMap;
+    }
+
+    public void setViewersMap(Map<Integer, Integer> viewersMap) {
+        this.viewersMap = viewersMap;
+    }
+    public void plusUser(){
+        usersReturned += 1;
+    }
+
     public static void stepsFileToList(List<Step> steps, Map<Integer, Integer> stepMap, String fileName){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
@@ -67,6 +89,7 @@ public class Step {
                 stepMap.put(stepId, steps.size());
                 steps.add(new Step(moduleId, modulePosition, lessonId, lessonPosition, stepId, stepPosition));
             }
+            steps.sort((o1, o2) -> o1.getGeneralPosition() - o2.getGeneralPosition());
         }
         catch(FileNotFoundException e){
             System.out.println("Данный файл структуры курса не найден.");

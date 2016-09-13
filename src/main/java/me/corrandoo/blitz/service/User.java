@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class User {
     private int id;
-    public Map<Integer, Integer> stepsViewed = new HashMap<>();
 
     public User(int id) {
         this.id = id;
@@ -19,11 +18,4 @@ public class User {
         this.id = id;
     }
 
-    public Map<Integer, Integer> getStepsViewed() {
-        return stepsViewed;
-    }
-
-    public void setStepsViewed(Map<Integer, Integer> stepsViewed) {
-        this.stepsViewed = stepsViewed;
-    }
 }
