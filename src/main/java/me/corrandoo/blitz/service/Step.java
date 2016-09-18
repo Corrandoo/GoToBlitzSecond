@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static me.corrandoo.blitz.Blitz.steps;
+
 public class Step {
     private int moduleId;
     private int modulePosition;
@@ -15,6 +17,9 @@ public class Step {
     private int generalPosition;
     private static int usersReturned = 0;
     private static Map<Integer, Integer> viewersMap = new HashMap<>();
+    private static int totalViewers = 0;
+    private static double serCoeffOfViewers;
+    private static int coeffOfViewers;
 
     public Step(int moduleId, int modulePosition, int lessonId, int lessonPosition, int stepId, int stepPosition) {
         this.moduleId = moduleId;
@@ -23,7 +28,7 @@ public class Step {
         this.lessonPosition = lessonPosition;
         this.stepId = stepId;
         this.stepPosition = stepPosition;
-        this.generalPosition = modulePosition * 100 + lessonPosition * 10 + stepPosition;
+        this.generalPosition = modulePosition * 1000000 + lessonPosition * 1000 + stepPosition;
     }
 
     public int getModuleId() {
@@ -92,11 +97,17 @@ public class Step {
             System.out.println("Ошибка при обработке файла структуры курса.");
         }
     }
-
     public static void countUsersReturned(){
+        totalViewers = viewersMap.size();
         for (Map.Entry<Integer, Integer> map : viewersMap.entrySet()) {
             if(map.getValue() > 1)
                 usersReturned++;
         }
+        serCoeffOfViewers = (double)totalViewers / (double)usersReturned;
+        coeffOfViewers = (int) (serCoeffOfViewers * 1000);
+    }
+
+    public static int getCoeffOfViewers() {
+        return coeffOfViewers;
     }
 }

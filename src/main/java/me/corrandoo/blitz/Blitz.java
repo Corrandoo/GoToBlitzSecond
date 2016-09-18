@@ -24,6 +24,7 @@ public class Blitz {
         getUsersList();
         getUsersReturned();
         countMainUsersReturned();
+        steps.sort((o1, o2) -> o1.getCoeffOfViewers() - o2.getCoeffOfViewers());
         getTenSteps();
     }
     public static void getUsersList(){
@@ -37,12 +38,12 @@ public class Blitz {
 
     public static void getUsersReturned(){
         for (Event event : events) {
-            if(!steps.get(stepMap.get(event.getStepId())).getViewersMap().containsKey(event.getUserId()) || (steps.get(stepMap.get(event.getStepId())).getGeneralPosition() - users.get(userMap.get(event.getUserId())).getLastStepPos() > 0)){
+            if(event.getEventType().equals("discovered")){
                 steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), 1);
             }
-            else if((steps.get(stepMap.get(event.getStepId())).getViewersMap().containsKey(event.getUserId())) && (steps.get(stepMap.get(event.getStepId())).getGeneralPosition() - users.get(userMap.get(event.getUserId())).getLastStepPos() < 0)){
-                int count = steps.get(stepMap.get(event.getStepId())).getViewersMap().get(event.getUserId()) + 1;
-                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), count);
+            else if(users.get(userMap.get(event.getUserId())).getLastStepPos() > steps.get(stepMap.get(event.getStepId())).getGeneralPosition()){
+                int count = steps.get(stepMap.get(event.getStepId())).getViewersMap().get(event.getUserId());
+                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), count++);
             }
         }
     }
@@ -51,19 +52,24 @@ public class Blitz {
         for (int i = 0; i < steps.size(); i++) {
             steps.get(i).countUsersReturned();
         }
-        steps.sort((o1, o2) -> o1.getUsersReturned() - o2.getUsersReturned());
     }
     private static void getTenSteps(){
         int j = 0;
+        for (int i = 1; i <= steps.size(); i++) {
+            Step step = steps.get(steps.size() - i);
+            System.out.print(step.getStepId() + " " + step.getUsersReturned());
+            j++;
+            if(j == 10)
+                break;
+            System.out.print(",");
+        }
+        System.out.println();
+        int x = 0;
         for (int i = 0; i < steps.size(); i++) {
-            if(steps.get(i).getUsersReturned() > 1){
-                System.out.print(steps.get(i).getStepId() + " " + steps.get(i).getUsersReturned());
-                j++;
-                if(j == 10)
-                    break;
-                System.out.print(",");
-            }
-
+            System.out.print(steps.get(i).getStepId());
+            x++;
+            if(x == 10) break;
+            System.out.print(",");
         }
     }
 
