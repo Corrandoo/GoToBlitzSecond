@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static me.corrandoo.blitz.service.Step.countUsersReturned;
 
 public class Blitz {
     public static List<Event> events = new ArrayList<Event>();

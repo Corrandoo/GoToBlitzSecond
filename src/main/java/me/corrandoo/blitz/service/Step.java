@@ -13,9 +13,6 @@ public class Step {
     private int id;
     private int stepPosition;
     private int generalPosition;
-    private static int totalViewers = 0;
-    private static double serCoeffOfViewers;
-    private static int coeffOfViewers;
 
     public Step(int modulePosition, int lessonPosition, int stepId, int stepPosition) {
         this.modulePosition = modulePosition;
