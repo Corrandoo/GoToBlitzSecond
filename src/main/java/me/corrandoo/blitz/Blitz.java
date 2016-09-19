@@ -22,10 +22,7 @@ public class Blitz {
         Event.eventsFileToList(events, "src/main/resources/course-217-events.csv");
         Step.stepsFileToList(steps, stepMap, "src/main/resources/course-217-structure.csv");
         getUsersList();
-        getUsersReturned();
-        countMainUsersReturned();
         steps.sort((o1, o2) -> o1.getCoeffOfViewers() - o2.getCoeffOfViewers());
-        getTenSteps();
     }
     public static void getUsersList(){
         for (Event event : events) {
@@ -36,42 +33,6 @@ public class Blitz {
         }
     }
 
-    public static void getUsersReturned(){
-        for (Event event : events) {
-            if(event.getEventType().equals("discovered")){
-                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), 1);
-            }
-            else if(users.get(userMap.get(event.getUserId())).getLastStepPos() > steps.get(stepMap.get(event.getStepId())).getGeneralPosition()){
-                int count = steps.get(stepMap.get(event.getStepId())).getViewersMap().get(event.getUserId());
-                steps.get(stepMap.get(event.getStepId())).getViewersMap().put(event.getUserId(), count++);
-            }
-        }
-    }
-
-    public static void countMainUsersReturned(){
-        for (int i = 0; i < steps.size(); i++) {
-            steps.get(i).countUsersReturned();
-        }
-    }
-    private static void getTenSteps(){
-        int j = 0;
-        for (int i = 1; i <= steps.size(); i++) {
-            Step step = steps.get(steps.size() - i);
-            System.out.print(step.getStepId() + " " + step.getUsersReturned());
-            j++;
-            if(j == 10)
-                break;
-            System.out.print(",");
-        }
-        System.out.println();
-        int x = 0;
-        for (int i = 0; i < steps.size(); i++) {
-            System.out.print(steps.get(i).getStepId());
-            x++;
-            if(x == 10) break;
-            System.out.print(",");
-        }
-    }
 
 
 }
