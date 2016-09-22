@@ -1,9 +1,7 @@
 package me.corrandoo.blitz.service;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static me.corrandoo.blitz.Blitz.steps;
 
@@ -13,6 +11,8 @@ public class Step {
     private int id;
     private int stepPosition;
     private int generalPosition;
+    private Set<Integer> discovered = new HashSet<>();
+    private Set<Integer> returned = new HashSet<>();
 
     public Step(int modulePosition, int lessonPosition, int stepId, int stepPosition) {
         this.modulePosition = modulePosition;
@@ -22,6 +22,9 @@ public class Step {
         this.generalPosition = modulePosition * 1000000 + lessonPosition * 1000 + stepPosition;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public int getModulePosition() {
         return modulePosition;
@@ -40,7 +43,13 @@ public class Step {
         return generalPosition;
     }
 
+    public Set<Integer> getDiscovered() {
+        return discovered;
+    }
 
+    public Set<Integer> getReturned() {
+        return returned;
+    }
 
     public static void stepsFileToList(List<Step> steps, Map<Integer, Integer> stepMap, String fileName){
         try {

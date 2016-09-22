@@ -15,6 +15,9 @@ public class User {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public int getLastStepPos() {
         return lastStepPos;
