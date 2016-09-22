@@ -66,8 +66,5 @@ public class Step {
         }
     }
 
-    public static int getCoeffOfViewers() {
-        return coeffOfViewers;
-    }
     //
 }
