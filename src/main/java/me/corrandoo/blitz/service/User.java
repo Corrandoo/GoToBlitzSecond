@@ -15,13 +15,6 @@ public class User {
         this.id = id;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getLastStepPos() {
         return lastStepPos;

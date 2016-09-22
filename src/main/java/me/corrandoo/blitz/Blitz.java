@@ -42,6 +42,7 @@ public class Blitz {
                 if(!user.getStepsReturned().contains(event.getStepId()))
                     user.getStepsReturned().add(event.getStepId());
             }
+            user.setLastStepPos(step.getGeneralPosition());
             users.set(userMap.get(event.getUserId()), user);
         }
     }
