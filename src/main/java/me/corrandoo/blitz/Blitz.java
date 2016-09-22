@@ -1,5 +1,6 @@
 package me.corrandoo.blitz;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import me.corrandoo.blitz.service.Event;
 import me.corrandoo.blitz.service.Step;
 import me.corrandoo.blitz.service.User;
@@ -22,6 +23,9 @@ public class Blitz {
         Step.stepsFileToList(steps, stepMap, "src/main/resources/course-217-structure.csv");
         getUsersList();
         processingReturnedSteps();
+        getCoeff();
+        steps.sort((o1 ,o2) -> o2.getCoeffOfReturned() - o1.getCoeffOfReturned());
+        print();
     }
     public static void getUsersList(){
         for (Event event : events) {
@@ -38,7 +42,7 @@ public class Blitz {
             if(!user.getStepsDiscovered().contains(event.getStepId())){
                 user.getStepsDiscovered().add(event.getStepId());
             }
-            if(user.getStepsDiscovered().contains(event.getStepId()) && user.getLastStepPos() - step.getGeneralPosition() > 0){
+            if(user.getStepsDiscovered().contains(event.getStepId()) && user.getLastStepPos() - step.getGeneralPosition() > 0 && event.getEventType().equals("viewed")){
                 if(!user.getStepsReturned().contains(event.getStepId()))
                     user.getStepsReturned().add(event.getStepId());
             }
@@ -58,6 +62,21 @@ public class Blitz {
                     step.getReturned().add(user.getId());
             }
             steps.set(stepMap.get(event.getStepId()), step);
+        }
+    }
+    public static void getCoeff(){
+        for (Step step : steps) {
+            step.countCoeffOfReturned();
+            steps.set(stepMap.get(step.getId()), step);
+        }
+    }
+    public static void print(){
+        int count = 0;
+        for (Step step : steps) {
+            System.out.print(step.getId());
+            count++;
+            if(count >= 10) break;
+            System.out.print(",");
         }
     }
 

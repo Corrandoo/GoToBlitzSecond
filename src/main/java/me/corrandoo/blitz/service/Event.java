@@ -23,6 +23,10 @@ public class Event {
         return userId;
     }
 
+    public String getEventType() {
+        return eventType;
+    }
+
     public int getStepId() {
         return stepId;
     }

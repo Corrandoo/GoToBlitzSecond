@@ -11,8 +11,9 @@ public class Step {
     private int id;
     private int stepPosition;
     private int generalPosition;
-    private Set<Integer> discovered = new HashSet<>();
-    private Set<Integer> returned = new HashSet<>();
+    private static int coeffOfReturned;
+    private static Set<Integer> discovered = new HashSet<>();
+    private static Set<Integer> returned = new HashSet<>();
 
     public Step(int modulePosition, int lessonPosition, int stepId, int stepPosition) {
         this.modulePosition = modulePosition;
@@ -24,6 +25,10 @@ public class Step {
 
     public int getId() {
         return id;
+    }
+
+    public static int getCoeffOfReturned() {
+        return coeffOfReturned;
     }
 
     public int getModulePosition() {
@@ -73,6 +78,10 @@ public class Step {
         catch(IOException e){
             System.out.println("Ошибка при обработке файла структуры курса.");
         }
+    }
+    public static void countCoeffOfReturned(){
+        double count = returned.size() * 1.0 / discovered.size() * 1.0;
+        coeffOfReturned = (int)(count * 100000.0);
     }
 
     //
